@@ -1,6 +1,6 @@
 # TODO
 # - probably can use a lot of system libs
-Summary:	Persistent group chat using XMPP
+Summary:	Group chat and IM - built for teams
 Name:		hipchat
 Version:	1.99.894
 Release:	0.1
@@ -14,6 +14,7 @@ Source1:	http://downloads.hipchat.com/linux/arch/%{name}-x86_64.tar.xz
 NoSource:	1
 URL:		https://www.hipchat.com/linux
 BuildRequires:	rpmbuild(macros) >= 1.596
+BuildRequires:	sed >= 4.0
 Requires:	desktop-file-utils
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
@@ -52,6 +53,7 @@ Persistent group chat using XMPP.
 
 # simplify for install
 mv opt/HipChat/{bin,lib,share/fonts/truetype} .
+%{__sed} -i -e '/^Exec=.*/ s,^Exec=.*,Exec=%{_bindir}/%{name},' usr/share/applications/%{name}.desktop
 
 %install
 rm -rf $RPM_BUILD_ROOT
